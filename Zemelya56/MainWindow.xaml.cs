@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Zemelya56.Views;
 
 namespace Zemelya56
 {
@@ -25,11 +26,16 @@ namespace Zemelya56
             InitializeComponent();
         }
 
-        private void btnauth_Click(object sender, RoutedEventArgs e)
+        private void OpenLoginWindow(object sender, RoutedEventArgs e)
         {
-            regWindow reg = new regWindow(); 
-            reg.Show(); 
-            this.Close(); 
+            var loginWindow = new LoginView();
+            loginWindow.Show();
+        }
+
+        private void OpenRequestWindow(object sender, RoutedEventArgs e)
+        {
+            var RequestWindow = new RequestView();
+            RequestWindow.Show();
         }
     }
 }

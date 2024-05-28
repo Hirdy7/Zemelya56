@@ -6,18 +6,11 @@
         xmlns:local="clr-namespace:Zemelya56"
         mc:Ignorable="d"
         
-    Title="Login" Height="450" Width="500" FontSize="14" Background="#c98722" MaxHeight="550" MaxWidth="600" MinHeight="550" MinWidth="600">
-    <Border Background="#36383A" CornerRadius="20" Margin="20">
-        <StackPanel Margin="20">
-            <Label Content="Авторизация" Foreground="#c98722" FontSize="25" HorizontalAlignment="Center"/>
+    Title="MainWindow" Height="450" Width="800"  Background="#c98722">
+    <StackPanel>
 
-            <Label Content="Логин:" Foreground="#c98722" HorizontalAlignment="Center"></Label>
-            <TextBox Name="txtUsername" Background="#545d6a" Foreground="white" FontSize="18"></TextBox>
-            <Label Content="Пароль:" Foreground="#c98722" HorizontalAlignment="Center"></Label>
-            <TextBox Name="txtPassword" Background="#545d6a" Foreground="white" FontSize="18"></TextBox>
-            <Button Name="btnSubmit" Content="Войти" Background="#c98722" Foreground="black" Margin="5,50,5,5" FontSize="18"></Button>
-            <Label Content="Зарегистрируйтесь, если нет аккаунта:" Foreground="#c98722" HorizontalAlignment="Center" Margin="164,50,1,1"></Label>
-            <Button Name="btnauth1" Content="Регистрация" Background="#c98722" Foreground="black" Margin="300,10,1,1" FontSize="18" Click="btnauth_Click"></Button>
-        </StackPanel>
-    </Border>
+        <Button Content="Login" Width="100" Height="30" Click="OpenLoginWindow" Margin="10"/>
+        <Button Content="Requests" Width="100" Height="30" Click="OpenRequestWindow" Margin="10"/>
+    </StackPanel>
+    
 </Window>

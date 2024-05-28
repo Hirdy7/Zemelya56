@@ -1,0 +1,32 @@
+﻿<Window x:Class="Zemelya56.Views.RequestView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zemelya56.Views"
+        mc:Ignorable="d"
+        Title="Requests" Height="450" Width="800">
+    <Grid>
+        <DataGrid ItemsSource="{Binding Requests}" AutoGenerateColumns="False" Width="800" Height="450">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" Margin="10,100,10,10">
+            <StackPanel>
+                <TextBox x:Name="RequestType" Width="200" Height="30" Text="{Binding RequestType}" Margin="10,140,10,10"/>
+                <TextBox x:Name="RequestDescription" Width="200" Height="30" Text="{Binding RequestDescription}" Margin="10"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Create" Width="100" Height="30" Command="{Binding CreateRequestCommand}" Margin="10"/>
+                <Button Content="Edit" Width="100" Height="30" Command="{Binding EditRequestCommand}" Margin="7"/>
+                <Button Content="Delete" Width="100" Height="30" Command="{Binding DeleteRequestCommand}" Margin="10"/>
+            </StackPanel>
+           
+        </StackPanel>
+        
+    </Grid>
+</Window>
