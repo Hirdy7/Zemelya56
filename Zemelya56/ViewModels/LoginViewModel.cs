@@ -1,5 +1,6 @@
 ﻿using Zemelya56.Models;
-using Zemelya56.Services;
+using Zemelya56.ViewModels;
+using Zemelya56.Service;
 using System;
 using System.Windows.Input;
 

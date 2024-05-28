@@ -1,116 +1,60 @@
-﻿using Zemelya56.Models;
-using Zemelya56.Services;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-using Zemelya56.Services;
-using Zemelya56.ViewModels;
+using System.ComponentModel;
+using Zemelya56.Models;
+using Zemelya56.Service;
 
 namespace Zemelya56.ViewModels
 {
-    public class RequestViewModel : BaseViewModel
+    public class RequestViewModel : INotifyPropertyChanged
     {
         private RequestService requestService;
+        private ObservableCollection<Request> requests;
 
         public RequestViewModel()
         {
             requestService = new RequestService();
-            CreateRequestCommand = new RelayCommand(CreateRequest);
-            EditRequestCommand = new RelayCommand(EditRequest);
-            DeleteRequestCommand = new RelayCommand(DeleteRequest);
-
-            Requests = new ObservableCollection<Request>(requestService.GetRequestsByUserId(UserId));
+            LoadRequests();
         }
 
-        private int userId;
-        public int UserId
-        {
-            get { return userId; }
-            set
-            {
-                userId = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private ObservableCollection<Request> requests;
         public ObservableCollection<Request> Requests
         {
             get { return requests; }
             set
             {
                 requests = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Requests");
             }
         }
 
-        private Request selectedRequest;
-        public Request SelectedRequest
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
         {
-            get { return selectedRequest; }
-            set
-            {
-                selectedRequest = value;
-                OnPropertyChanged();
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string requestType;
-        public string RequestType
+        private void LoadRequests()
         {
-            get { return requestType; }
-            set
-            {
-                requestType = value;
-                OnPropertyChanged();
-            }
+            Requests = new ObservableCollection<Request>(requestService.GetAllRequests());
         }
 
-        private string requestDescription;
-        public string RequestDescription
+        public void AddRequest(Request request)
         {
-            get { return requestDescription; }
-            set
-            {
-                requestDescription = value;
-                OnPropertyChanged();
-            }
+            requestService.AddRequest(request);
+            LoadRequests();
         }
 
-        public ICommand CreateRequestCommand { get; }
-        public ICommand EditRequestCommand { get; }
-        public ICommand DeleteRequestCommand { get; }
-
-        private void CreateRequest()
+        public void UpdateRequest(Request request)
         {
-            var request = new Request
-            {
-                UserId = userId,
-                Type = requestType,
-                Status = "pending",
-                Description = requestDescription
-            };
-            requestService.CreateRequest(request);
-            Requests.Add(request);
+            requestService.UpdateRequest(request);
+            LoadRequests();
         }
 
-        private void EditRequest()
+        public void DeleteRequest(string title)
         {
-            if (selectedRequest != null)
-            {
-                selectedRequest.Type = requestType;
-                selectedRequest.Status = "pending";
-                selectedRequest.Description = requestDescription;
-                requestService.EditRequest(selectedRequest);
-            }
-        }
-
-        private void DeleteRequest()
-        {
-            if (selectedRequest != null)
-            {
-                requestService.DeleteRequest(selectedRequest.Id);
-                Requests.Remove(selectedRequest);
-            }
+            requestService.DeleteRequest(title);
+            LoadRequests();
         }
     }
 }

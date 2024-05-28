@@ -1,41 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Zemelya56.Models;
+using Zemelya56.ViewModels;
 using Zemelya56.Views;
 
 namespace Zemelya56
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private RequestViewModel requestViewModel;
+
         public MainWindow()
         {
             InitializeComponent();
+            requestViewModel = new RequestViewModel();
+            DataContext = requestViewModel;
         }
 
-        private void OpenLoginWindow(object sender, RoutedEventArgs e)
+        private void AddRequest_Click(object sender, RoutedEventArgs e)
         {
-            var loginWindow = new LoginView();
-            loginWindow.Show();
+            var newRequest = new Request
+            {
+                Title = "New Request",
+                Description = "Description",
+                CreatedAt = DateTime.Now
+            };
+            requestViewModel.AddRequest(newRequest);
         }
 
-        private void OpenRequestWindow(object sender, RoutedEventArgs e)
+        private void EditRequest_Click(object sender, RoutedEventArgs e)
         {
-            var RequestWindow = new RequestView();
-            RequestWindow.Show();
+            if (RequestsList.SelectedItem is Request selectedRequest)
+            {
+                var editWindow = new EditRequestWindow(selectedRequest);
+                editWindow.ShowDialog();
+                requestViewModel.UpdateRequest(selectedRequest);
+            }
+        }
+
+        private void DeleteRequest_Click(object sender, RoutedEventArgs e)
+        {
+            if (RequestsList.SelectedItem is Request selectedRequest)
+            {
+                requestViewModel.DeleteRequest(selectedRequest.Title);
+            }
         }
     }
-}
+} 

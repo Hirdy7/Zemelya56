@@ -8,12 +8,10 @@
         Title="Login" Height="200" Width="400">
     <Grid>
         <StackPanel>
-            <Label Content="Username" Margin="10,0,0,0"/>
-            <TextBox Name="Username" Margin="10,10,10,0"/>
-            <Label Content="Password" Margin="10,0,0,0"/>
-            <PasswordBox Name="Password" Margin="10,10,10,0"  />
-            <Button Name="LoginButton" Content="Login" Click="LoginButton_Click" Margin="10" />
-            <Button Name="RegisterButton" Content="Register" Click="RegisterButton_Click" Margin=" 10,10,10,0"/>
+            <TextBox Name="Username"  Margin="10" Padding="5"/>
+            <PasswordBox Name="Password" Margin="10" Padding="5"/>
+            <Button Name="LoginButton" Content="Login" Click="LoginButton_Click" Margin="10" Padding="5"/>
+            <Button Name="RegisterButton" Content="Register" Click="RegisterButton_Click" Margin="10" Padding="5"/>
         </StackPanel>
     </Grid>
 </Window>

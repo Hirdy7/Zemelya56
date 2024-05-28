@@ -6,11 +6,22 @@
         xmlns:local="clr-namespace:Zemelya56"
         mc:Ignorable="d"
         
-    Title="MainWindow" Height="450" Width="800"  Background="#c98722">
-    <StackPanel>
+   Title="Main Window" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <Button Content="Add Request" Click="AddRequest_Click" />
+            <Button Content="Edit Request" Click="EditRequest_Click" />
+            <Button Content="Delete Request" Click="DeleteRequest_Click" />
+            <ListView Name="RequestsList" ItemsSource="{Binding Requests}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="120"/>
+                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="200"/>
+                        <GridViewColumn Header="Created At" DisplayMemberBinding="{Binding CreatedAt}" Width="120"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </Grid>
 
-        <Button Content="Login" Width="100" Height="30" Click="OpenLoginWindow" Margin="10"/>
-        <Button Content="Requests" Width="100" Height="30" Click="OpenRequestWindow" Margin="10"/>
-    </StackPanel>
-    
 </Window>

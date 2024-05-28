@@ -1,67 +1,51 @@
-﻿using Zemelya56.Models;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
+using Zemelya56.Models;
 using System.Linq;
+using System;
 
-namespace Zemelya56.Services
+namespace Zemelya56.Service
 {
     public class RequestService
     {
-        private List<Request> requests;
-        private readonly string filePath = "requests.json";
+        private List<Request> requests = new List<Request>();
 
-        public RequestService()
+        public List<Request> GetAllRequests()
         {
-            if (File.Exists(filePath))
-            {
-                var json = File.ReadAllText(filePath);
-                requests = JsonConvert.DeserializeObject < List < Request>>(json);
-            }
-            else
-            {
-                requests = new List<Request>();
-            }
+            return requests;
         }
 
-        public void CreateRequest(Request request)
+        public Request GetRequest(string title)
         {
-            request.Id = requests.Any() ? requests.Max(r => r.Id) + 1 : 1;
+            return requests.FirstOrDefault(r => r.Title == title);
+        }
+
+        public void AddRequest(Request request)
+        {
             requests.Add(request);
-            SaveToFile();
         }
 
-        public void EditRequest(Request request)
+        public void UpdateRequest(Request updatedRequest)
         {
-            var existingRequest = requests.FirstOrDefault(r => r.Id == request.Id);
-            if (existingRequest != null)
+            var request = GetRequest(updatedRequest.Title);
+            if (request != null)
             {
-                existingRequest.Type = request.Type;
-                existingRequest.Status = request.Status;
-                existingRequest.Description = request.Description;
-                SaveToFile();
+                request.Description = updatedRequest.Description;
+                request.CreatedAt = updatedRequest.CreatedAt;
             }
         }
 
-        public void DeleteRequest(int requestId)
+        public void DeleteRequest(string title)
         {
-            var request = requests.FirstOrDefault(r => r.Id == requestId);
+            var request = GetRequest(title);
             if (request != null)
             {
                 requests.Remove(request);
-                SaveToFile();
             }
         }
 
-        public List<Request> GetRequestsByUserId(int userId)
+        internal void CreateRequest(Request request)
         {
-            return requests.Where(r => r.UserId == userId).ToList();
-        }
-
-        private void SaveToFile()
-        {
-            var json = JsonConvert.SerializeObject(requests, Formatting.Indented);
-            File.WriteAllText(filePath, json);
+            throw new NotImplementedException();
         }
     }
 }
