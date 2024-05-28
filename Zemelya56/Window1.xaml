@@ -1,0 +1,40 @@
+﻿<Window x:Class="Zemelya56.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zemelya56"
+        mc:Ignorable="d"
+          Title="Land Sales App" Height="450" Width="800">
+    <Grid>
+        <Menu Height="30" VerticalAlignment="Top">
+            <MenuItem Header="Создать заявку на приобретение"/>
+            <MenuItem Header="Создать заявку на продажу"/>
+            <MenuItem Header="Просмотр заявок"/>
+        </Menu>
+
+        <TabControl VerticalAlignment="Center">
+            <TabItem Header="Просмотр заявок">
+                <ListView ItemsSource="{Binding LandSaleRequests}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ФИО" DisplayMemberBinding="{Binding FullName}"/>
+                            <GridViewColumn Header="Контактная информация" DisplayMemberBinding="{Binding ContactInfo}"/>
+                            <GridViewColumn Header="Площадь участка" DisplayMemberBinding="{Binding Area}"/>
+                            <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}"/>
+                            <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Header="Создать заявку на приобретение">
+                <!-- Форма для создания заявки на приобретение -->
+            </TabItem>
+
+            <TabItem Header="Создать заявку на продажу">
+                <!-- Форма для создания заявки на продажу -->
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
