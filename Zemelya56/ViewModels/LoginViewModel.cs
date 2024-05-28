@@ -1,23 +1,22 @@
-﻿using Zemelya56.Models;
-using Zemelya56.ViewModels;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using Zemelya56.Service;
-using System;
-using System.Windows.Input;
-
+using Zemelya56.Models;
 
 namespace Zemelya56.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public class LoginViewModel : INotifyPropertyChanged
     {
-        private UserService userService;
+        private readonly UserService userService;
+        private string username;
+        private string password;
 
-        public LoginViewModel()
+        public LoginViewModel(UserService userService)
         {
-            userService = new UserService();
-            LoginCommand = new RelayCommand(Login);
+            this.userService = userService;
         }
 
-        private string username;
         public string Username
         {
             get { return username; }
@@ -28,7 +27,6 @@ namespace Zemelya56.ViewModels
             }
         }
 
-        private string password;
         public string Password
         {
             get { return password; }
@@ -39,19 +37,21 @@ namespace Zemelya56.ViewModels
             }
         }
 
-        public ICommand LoginCommand { get; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private void Login()
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var user = userService.Login(username, password);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool Login()
+        {
+            var user = userService.Authenticate(username, password);
             if (user != null)
             {
-                Console.WriteLine("Успешный вход");
+                return true;
             }
-            else
-            {
-                Console.WriteLine("Ошибка входа"); 
-            }
+            return false;
         }
     }
 }
